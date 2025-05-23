@@ -5,6 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
+D.I.T.H./
+_vizdoom*
+coNNquest/
 
 # Distribution / packaging
 .Python
