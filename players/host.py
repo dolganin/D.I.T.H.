@@ -6,10 +6,9 @@ import vizdoom as vzd
 
 # ==== Doom init ==============================================================
 host_args = (
-    "-host 2 -deathmatch +timelimit 0 +sv_forcerespawn 1 "
-    "+sv_nocrouch 1 +set cl_run 1 +set crosshair 1 +freelook 1"
+        "-host 1 deathmatch +timelimit 0 +sv_forcerespawn 1 +sv_nocrouch 1"
 )
-env = ConNquestEnv(disable_monsters=False, extra_args=host_args)
+env = ConNquestEnv(disable_monsters=True, extra_args=host_args)
 env.reset()
 
 # ==== UDP init ===============================================================

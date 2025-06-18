@@ -6,21 +6,21 @@ from system.adaptive_system import AdaptiveEnsembleAgent
 MODELS = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "models"))
 
 # ==== Doom init ==============================================================
-join_args = "-join 127.0.0.1"
+join_args = "-join 1"
 env = ConNquestEnv(disable_monsters=True, extra_args=join_args)
 env.game.set_window_visible(False)
 env.game.set_mode(env.game.Mode.PLAYER)
 
 # ==== UDP приёмник ===========================================================
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind(("0.0.0.0", 50007))
-sock.setblocking(False)
+#sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+#sock.bind(("0.0.0.0", 50007))
+#sock.setblocking(False)
 
 # ==== агент ==================================================================
 agent = AdaptiveEnsembleAgent(
     stormtrooper_model_path=os.path.join(MODELS, "stormtrooper.onnx"),
     pacifist_model_path   =os.path.join(MODELS, "pacifist.onnx"),
-    balanced_model_path   =os.path.join(MODELS, "balanced.onnx"),
+    balanced_model_path   =os.path.join(MODELS, "normal.onnx"),
     momentum=0.99,
     n_actions=env.game.get_available_buttons_size()
 )

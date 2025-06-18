@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 # 1. создаём и активируем окружение
 python3 -m venv D.I.T.H.
 source D.I.T.H./bin/activate
 
 # 2. зависимости
-python -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 pip install vizdoom onnxruntime numpy pyyaml
 
 # 3. клонируем репо
 [ -d coNNquest ] || git clone https://github.com/dolganin/coNNquest.git
 
-# 4. выставляем PYTHONPATH
-export PYTHONPATH="$(pwd)"
+# 4. PYTHONPATH
+export PYTHONPATH="$PWD"
 
 # 5. запускаем игрока-хоста (сервер)
-python players/host.py &
+python3 players/host.py &
 HOST_PID=$!
 
-# 6. пауза перед запуском клиента
+# 6. пауза и запуск клиента
 sleep 1
-
-# 7. запускаем адаптивного бота
-python players/bot.py &
+python3 players/bot.py &
 BOT_PID=$!
 
-# 8. ждём завершения обоих
-wait "$HOST_PID"
-wait "$BOT_PID"
+# 7. ждём, пока любой завершится, и убиваем второй
+wait -n
+kill $HOST_PID $BOT_PID 2>/dev/null || true
+wait
 
-# 9. выключаем окружение
+# 8. деактивируем окружение
 deactivate
+
