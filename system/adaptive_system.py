@@ -19,7 +19,7 @@ class AdaptiveEnsembleAgent(ABC):
         d_min=0.0, d_max=10.0,
         v_min=0.0, v_max=5.0,
         p_min=0.0, p_max=50.0,
-        n_actions: int = 8,
+        n_actions: int = 10,
     ):
         # загружаем модели, если есть
         self.has_models = all(os.path.isfile(p) for p in
@@ -33,6 +33,7 @@ class AdaptiveEnsembleAgent(ABC):
             self.st_in = self.st_sess.get_inputs()[0].name
             self.pc_in = self.pc_sess.get_inputs()[0].name
             self.ba_in = self.ba_sess.get_inputs()[0].name
+            print("ONNX-модели агентов успешно загружены!")
         else:
             print("⚠️  ONNX-модели не найдены — действия будут случайными")
 
